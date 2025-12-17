@@ -1,0 +1,9 @@
+.form {
+    display: flex;
+    max-width: 25rem;
+    flex-direction: column;
+}
+
+.thead-local-list {
+    background-color: #cdc4c4;
+}
