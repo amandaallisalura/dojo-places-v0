@@ -39,7 +39,14 @@
       <td>${local.city}</td>
       <td>${local.creationDate}</td>
       <td>${local.lastUpdate}</td>
-      <td><button>Editar</button></td>
+      <td>
+        <a href="/update?id=${local.id}">Editar</a>
+
+        <form action="/remove" method="post">
+          <button name="id" value="${local.id}">Deletar</button>
+        </form>
+
+      </td>
     </tr>
   </c:forEach>
   </tbody>

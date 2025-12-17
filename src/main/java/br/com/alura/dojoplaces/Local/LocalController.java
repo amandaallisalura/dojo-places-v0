@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,13 +41,28 @@ public class LocalController {
         return "listLocal";
     }
 
+    @GetMapping("/update")
+    public String updateLocal(@RequestParam("id") Long id, Model model) {
+        LocalWithLastUpdateDTO localToUpdate = localService.findById(id);
+        model.addAttribute("localDTO", localToUpdate);
+
+        return "updateLocal";
+    }
+
     @PostMapping("/update")
-    public String update(@Valid LocalDTO localDTO, BindingResult bindingResult, Model model) {
+    public String update(@RequestParam("id") Long id, @Valid LocalDTO localDTO, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             return newLocal(localDTO, model);
         }
 
-        localService.save(localDTO);
+        localService.update(id, localDTO);
+        return "redirect:/list";
+    }
+
+
+    @PostMapping("/remove")
+    public String remove(@RequestParam("id") Long id) {
+        localService.remove(id);
         return "redirect:/list";
     }
  }
